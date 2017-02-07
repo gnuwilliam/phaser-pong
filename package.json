@@ -1,0 +1,11 @@
+{
+    "name": "pong-game",
+    "version": "1.0.0",
+    "description": "Pong pong pong",
+    "scripts": {
+        "start": "harp server --port $PORT"
+    },
+    "dependencies": {
+        "harp": "*"
+    }
+}
