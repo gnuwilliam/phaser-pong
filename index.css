@@ -10,3 +10,9 @@ body {
     margin: 0 auto;
     padding-top: 45px;
 }
+
+canvas {
+    box-shadow: 0 0 85px rgb(47, 47, 107);
+    border: 3px dotted #FFF;
+    box-sizing: border-box;
+}
