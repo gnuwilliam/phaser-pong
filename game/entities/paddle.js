@@ -4,6 +4,7 @@ class Paddle extends Phaser.Sprite {
 
         this.anchor.setTo(0.5, 0.5);
         this.mute = mute;
+        this.score = 0;
 
         if (flipX) {
             this.scale.x *= -1;
