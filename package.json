@@ -5,7 +5,9 @@
     "scripts": {
         "start": "harp server --port $PORT"
     },
+    "main": "electron.js",
     "dependencies": {
-        "harp": "*"
+        "harp": "*",
+        "electron": "*"
     }
 }
