@@ -4,6 +4,8 @@ class Play extends Phaser.State {
         this.paddle_one = null;
         this.paddle_two = null;
         this.ball = null;
+        this.emitter = null;
+        this.bgGraphics = null;
 
         // paddles
         this.paddle_one = new Paddle(this.game, 0, this.game.world.centerY, false, false);
@@ -13,29 +15,18 @@ class Play extends Phaser.State {
         this.ball = new Ball(this.game, this.game.world.centerX, this.game.world.centerY, false);
         game.input.onDown.addOnce(this.ball.launch(), this);
 
+        // bg color
         game.stage.backgroundColor = "#292953";
 
-        this.emitter = game.add.emitter(0, 0, 100);
-        this.emitter.makeParticles('particle');
-        this.emitter.gravity = 200;
+        // particles emitter
+        this.particleEmitter();
 
-        this.score_one = this.game.add.text(
-            32, 32,
-            `Score: ${this.paddle_one.score}`,
-            { font: '20px Courier', fill: '#FFF' }
-        );
+        // screen text stuff
+        this.scoreText();
+        this.startText();
 
-        this.score_two = this.game.add.text(
-            800-132, 32,
-            `Score: ${this.paddle_two.score}`,
-            { font: '20px Courier', fill: '#FFF' }
-        );
-
-        this.start_text = this.game.add.text(
-            this.game.world.centerX-160, this.game.world.centerY-22,
-            `Click to Start`,
-            { font: '40px Courier', fill: '#FFF' }
-        );
+        // draw middle dotted line
+        this.drawLine();
 
         game.input.onDown.addOnce(this.removeStarText(), this);
     }
@@ -77,5 +68,43 @@ class Play extends Phaser.State {
         return function () {
             this.start_text.destroy();
         }
+    }
+
+    scoreText () {
+        this.score_one = this.game.add.text(
+            32, 32,
+            `Score: ${this.paddle_one.score}`,
+            { font: '20px Courier', fill: '#FFF' }
+        );
+
+        this.score_two = this.game.add.text(
+            800-132, 32,
+            `Score: ${this.paddle_two.score}`,
+            { font: '20px Courier', fill: '#FFF' }
+        );
+    }
+
+    startText() {
+        this.start_text = this.game.add.text(
+            this.game.world.centerX-160, this.game.world.centerY-22,
+            `Click to Start`,
+            { font: '40px Courier', fill: '#FFF' }
+        );
+    }
+
+    drawLine () {
+        this.bgGraphics = game.add.graphics(0, 0);
+        this.bgGraphics.lineStyle(2, 0xFFFFFF, 1);
+
+        for (var y = 0; y < this.game.world.height; y += 5 * 2) {
+            this.bgGraphics.moveTo(this.game.world.centerX, y);
+            this.bgGraphics.lineTo(this.game.world.centerX, y + 5);
+        }
+    }
+
+    particleEmitter () {
+        this.emitter = game.add.emitter(0, 0, 100);
+        this.emitter.makeParticles('particle');
+        this.emitter.gravity = 200;
     }
 }
