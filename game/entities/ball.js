@@ -2,17 +2,20 @@ class Ball extends Phaser.Sprite {
     constructor (game, x, y, launched) {
         super(game, x, y, 'ball');
 
-        this.anchor.setTo(0.5, 0.5);
         game.physics.arcade.enable(this);
+
+        this.anchor.setTo(0.5, 0.5);
         this.body.collideWorldBounds = true;
         this.body.bounce.setTo(1, 1);
         this.velocity = 400;
+
         game.add.existing(this);
     }
 
     launch () {
         var self = this;
         return function () {
+            this.angle += 1;
             if (self.launched) {
                 self.x = self.game.world.centerX;
                 self.y = self.game.world.centerY;
@@ -24,6 +27,10 @@ class Ball extends Phaser.Sprite {
                 self.launched = true;
             }
         }
+    }
+
+    update () {
+        this.angle += 1;
     }
 }
 
