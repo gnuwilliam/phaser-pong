@@ -15,6 +15,10 @@ class Play extends Phaser.State {
 
         game.stage.backgroundColor = "#292953";
 
+        this.emitter = game.add.emitter(0, 0, 100);
+        this.emitter.makeParticles('particle');
+        this.emitter.gravity = 200;
+
         this.score_one = this.game.add.text(
             32, 32,
             `Score: ${this.paddle_one.score}`,
@@ -40,12 +44,26 @@ class Play extends Phaser.State {
         this.game.physics.arcade.collide(this.paddle_one, this.ball);
         this.game.physics.arcade.collide(this.paddle_two, this.ball);
 
+        if (this.ball.body.touching.left) {
+            this.emitter.x = this.ball.x;
+            this.emitter.y = this.ball.y;
+            this.emitter.start(true, 2000, null, 20);
+            this.game.camera.shake(0.000005, 200);
+        } else if (this.ball.body.touching.right) {
+            this.emitter.x = this.ball.x;
+            this.emitter.y = this.ball.y;
+            this.emitter.start(true, 2000, null, 20);
+            this.game.camera.shake(0.000005, 200);
+        }
+
         if (this.ball.body.blocked.right) {
             this.paddle_one.score += 1;
             this.score_one.setText(`Score: ${this.paddle_one.score}`);
+            this.game.camera.shake(0.005, 1000);
         } else if (this.ball.body.blocked.left) {
             this.paddle_two.score += 1;
             this.score_two.setText(`Score: ${this.paddle_two.score}`);
+            this.game.camera.shake(0.005, 1000);
         }
 
         if (this.paddle_one.score >= 5) {

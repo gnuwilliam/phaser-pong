@@ -5,6 +5,7 @@ class Load extends Phaser.State {
         this.game.load.image('over', 'assets/over.bmp');
         this.game.load.image('paddle', 'assets/paddle.png');
         this.game.load.image('ball', 'assets/ball.png');
+        this.game.load.image('particle', 'assets/particle.bmp');
 
         this.game.add.tileSprite(0, 0, 800, 600, 'loading');
     }
