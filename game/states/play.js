@@ -12,6 +12,8 @@ class Play extends Phaser.State {
         // ball
         this.ball = new Ball(this.game, this.game.world.centerX, this.game.world.centerY, false);
         game.input.onDown.add(this.ball.launch(), this);
+
+        game.stage.backgroundColor = "#292953";
     }
 
     update () {

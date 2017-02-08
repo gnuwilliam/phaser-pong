@@ -14,8 +14,6 @@ class Menu extends Phaser.State {
         var spaceKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         spaceKey.onDown.addOnce(this.start, this);
 
-        console.log(spaceKey);
-
         this.game.add.tileSprite(0, 0, 800, 600, 'menu_bg');
     }
 
